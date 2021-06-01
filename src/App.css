@@ -7,23 +7,15 @@
   "n c";
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
-  /*grid-gap: 10px;*/
+  /*
+  grid-gap: 10px;
+  */
 }
-.header {
-  grid-area: h;
-  background-color: #436575;}
-.header img {
-  width: 7%;
-}
-.nav {
-  grid-area: n;
-  background-color: #397a98;
-}
-.content {
+.App-wrapper-content {
   grid-area: c;
   background-color: goldenrod;
 }
-.content img {
-  width: 100%;
 
-}
+
+
+
