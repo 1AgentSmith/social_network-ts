@@ -3,6 +3,7 @@ import s from './Post.module.css'
 
 type PostType = {
     message: string,
+    likesCount: number,
 }
 
 const Post:React.FC<PostType> = (props) => {
@@ -12,7 +13,7 @@ const Post:React.FC<PostType> = (props) => {
                 <img src="https://cdn.optipic.io/site-539/upload/iblock/3cf/3cf9c4690bf2010f649a0ad35d80763f.jpg"/>
                 {props.message}
                 <div>
-                    <span>like</span>
+                    <span>like {props.likesCount}</span>
                 </div>
             </div>
         </div>
