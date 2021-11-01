@@ -1,27 +1,37 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import Post from './Post/Post';
+import {ActionsTypes, PostDataType} from '../../../redux/rootStateType';
+import {addPostActionCreator, updateNewPostMessageAC} from '../../../redux/state';
 
 type MyPostPropsType = {
-    postData:Array<postDataType>
-}
-type postDataType = {
-    id: string
-    message: string
-    likesCount: number
+    postData: Array<PostDataType>
+    messageForNewPost: string
+    dispatch: (action: ActionsTypes) => void
 }
 
-const MyPosts = (props:MyPostPropsType) => {
+const MyPosts = (props: MyPostPropsType) => {
 
-    let postElements = props.postData.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+    let postElements = props.postData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
+
+    let onAddClickHandler = () => {
+        props.dispatch(addPostActionCreator(props.messageForNewPost))
+    }
+    let onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(updateNewPostMessageAC(e.currentTarget.value))
+    }
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
-                <div><textarea></textarea></div>
                 <div>
-                    <button>Add post</button>
+                    <textarea value={props.messageForNewPost}
+                              onChange={onChangeHandler}
+                    >g</textarea>
+                </div>
+                <div>
+                    <button onClick={onAddClickHandler}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
