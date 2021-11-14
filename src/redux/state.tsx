@@ -1,10 +1,9 @@
 import {v1} from 'uuid';
-import {PostDataType, StoreType} from './rootStateType';
+import {StoreType} from './rootStateType';
+import {profileReducer} from './profileReducer';
+import {dialogsReducer} from './dialogsReducer';
+import {sidebarReducer} from './sidebarReducer';
 
-const ADD_POST = 'ADD_POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
-const SEND_DIALOG_MESSAGE = 'SEND_DIALOG_MESSAGE'
 
 export let store: StoreType = {
     _state: {
@@ -23,11 +22,12 @@ export let store: StoreType = {
             ],
             messages: [
                 {id: v1(), message: 'Hi'},
-                {id: v1(), message: 'How is your it-kamasutra'},
+                {id: v1(), message: 'How are you?'},
                 {id: v1(), message: 'Yo'},
             ],
             newMessageBody: '',
-        }
+        },
+        sidebar: {}
     },
     _callSubscriber() {
     },
@@ -38,54 +38,39 @@ export let store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            const newPost: PostDataType = {
-                id: v1(),
-                message: action.postText,
-                likesCount: 0
-            }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
 
-            this._state.profilePage.postData.unshift(newPost)
-            this._state.profilePage.messageForNewPost = ''
-            console.log(this._state.profilePage.postData)
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.messageForNewPost = action.message
-            this._callSubscriber(this._state)
-        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this._state.dialogsPage.newMessageBody = action.body
-            this._callSubscriber(this._state)
-        } else if (action.type === SEND_DIALOG_MESSAGE) {
-            let body = this._state.dialogsPage.newMessageBody
-            this._state.dialogsPage.newMessageBody = ''
-            this._state.dialogsPage.messages.push({id: v1(), message: body})
-            this._callSubscriber(this._state)
-        }
+        this._callSubscriber(this._state)
+
     }
 }
-export const addPostActionCreator = (postText: string) => ({
-    type: ADD_POST,
-    postText: postText
-}) as const
+/*if (action.type === ADD_POST) {
+    const newPost: PostDataType = {
+        id: v1(),
+        message: action.postText,
+        likesCount: 0
+    }
 
-export const updateNewPostMessageAC = (message: string) => {
-    return ({
-        type: UPDATE_NEW_POST_TEXT,
-        message: message
-    }) as const
-}
+    this._state.profilePage.postData.unshift(newPost)
+    this._state.profilePage.messageForNewPost = ''
+    console.log(this._state.profilePage.postData)
+    this._callSubscriber(this._state)
+} else if (action.type === UPDATE_NEW_POST_TEXT) {
+    this._state.profilePage.messageForNewPost = action.message
+    this._callSubscriber(this._state)
+} else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+    this._state.dialogsPage.newMessageBody = action.body
+    this._callSubscriber(this._state)
+} else if (action.type === SEND_DIALOG_MESSAGE) {
+    let body = this._state.dialogsPage.newMessageBody
+    this._state.dialogsPage.newMessageBody = ''
+    this._state.dialogsPage.messages.push({id: v1(), message: body})
+    this._callSubscriber(this._state)
+}*/
 
-export const sendDialogMessageAC = () => {
-    return ({
-        type: SEND_DIALOG_MESSAGE,
-    }) as const
-}
 
-export const updateNewMessageBodyAC = (body: string) => {
-    return ({
-        type: UPDATE_NEW_MESSAGE_BODY,
-        body: body
-    }) as const
-}
+
 
 

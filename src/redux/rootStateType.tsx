@@ -1,4 +1,5 @@
-import {addPostActionCreator, sendDialogMessageAC, updateNewMessageBodyAC, updateNewPostMessageAC} from './state';
+import {addPostActionCreator, updateNewPostMessageAC} from './profileReducer';
+import {sendDialogMessageAC, updateNewMessageBodyAC} from './dialogsReducer';
 
 
 export type StoreType = {
@@ -19,6 +20,7 @@ export type ActionsTypes =
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
+    sidebar: any
 }
 
 // profilePage type
@@ -49,5 +51,6 @@ export type DialogsType = {
     id: string
 }
 export type newMessageBodyType = string
+//sideBar type
 
 
