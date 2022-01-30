@@ -1,6 +1,8 @@
 import {ActionsTypes, RootStateType} from './rootStateType';
 
-export const sidebarReducer = (state: RootStateType, action: ActionsTypes) => {
+let initialState = {}
+
+export const sidebarReducer = (state: any = initialState, action: ActionsTypes) => {
     return(
         state
     )

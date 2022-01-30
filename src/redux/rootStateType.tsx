@@ -2,13 +2,7 @@ import {addPostActionCreator, updateNewPostMessageAC} from './profileReducer';
 import {sendDialogMessageAC, updateNewMessageBodyAC} from './dialogsReducer';
 
 
-export type StoreType = {
-    _state: RootStateType
-    _callSubscriber: (state: RootStateType) => void
-    subscribe: (onChange: (state: RootStateType) => void) => void
-    getState: () => RootStateType
-    dispatch: (action: ActionsTypes) => void
-}
+
 
 export type ActionsTypes =
     ReturnType<typeof addPostActionCreator> |

@@ -1,24 +1,26 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import Post from './Post/Post';
-import {ActionsTypes, PostDataType} from '../../../redux/rootStateType';
-import {addPostActionCreator, updateNewPostMessageAC} from '../../../redux/profileReducer';
+import { PostDataType} from '../../../redux/rootStateType';
+import {AppStateType} from '../../../redux/redux-store';
 
 type MyPostPropsType = {
-    postData: Array<PostDataType>
+    updateNewPostText:(title: string)=> void
+    addPost:()=> void
+    posts: Array<PostDataType>
     messageForNewPost: string
-    dispatch: (action: ActionsTypes) => void
 }
 
-const MyPosts = (props: MyPostPropsType) => {
+const MyPosts = (
+    {updateNewPostText, addPost, posts, messageForNewPost, ...props}: MyPostPropsType) => {
 
-    let postElements = props.postData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
+    let postElements = posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     let onAddClickHandler = () => {
-        props.dispatch(addPostActionCreator(props.messageForNewPost))
+        addPost()
     }
     let onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewPostMessageAC(e.currentTarget.value))
+        updateNewPostText(e.currentTarget.value)
     }
 
     return (
@@ -26,7 +28,7 @@ const MyPosts = (props: MyPostPropsType) => {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea value={props.messageForNewPost}
+                    <textarea value={messageForNewPost}
                               onChange={onChangeHandler}
                     >g</textarea>
                 </div>

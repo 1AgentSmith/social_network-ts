@@ -1,45 +1,51 @@
-import {ActionsTypes, DialogsPageType} from './rootStateType';
+import {ActionsTypes, DialogsPageType, DialogsType, MessagesType, newMessageBodyType} from './rootStateType';
 import {v1} from 'uuid';
 
 
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
 const SEND_DIALOG_MESSAGE = 'SEND_DIALOG_MESSAGE'
-export const dialogsReducer = (state: DialogsPageType, action: ActionsTypes) => {
 
+let initialState = {
+    dialogs: [
+        {name: 'Valery', id: v1()},
+        {name: 'Vlad', id: v1()},
+        {name: 'Aleksandra', id: v1()},
+    ] as Array<DialogsType>,
+    messages: [
+        {id: v1(), message: 'Hi'},
+        {id: v1(), message: 'How are you?'},
+        {id: v1(), message: 'Yo'},
+    ] as Array<MessagesType>,
+    newMessageBody: '' as newMessageBodyType,
+}
 
+export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes) : DialogsPageType=> {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY:
-            state.newMessageBody = action.body
-            return state
-        case SEND_DIALOG_MESSAGE:
+        case UPDATE_NEW_MESSAGE_BODY: {
+            return {...state, newMessageBody: action.title}
+        }
+        case SEND_DIALOG_MESSAGE: {
             let body = state.newMessageBody
-            state.newMessageBody = ''
-            state.messages.push({id: v1(), message: body})
-            return state
+            return {
+                ...state,
+                newMessageBody:'',
+                messages: [...state.messages, {id: v1(), message: body}]
+            }
+        }
         default:
             return state
     }
 
-    /*    if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            state.newMessageBody = action.body
-        } else if (action.type === SEND_DIALOG_MESSAGE) {
-            let body = state.newMessageBody
-            state.newMessageBody = ''
-            state.messages.push({id: v1(), message: body})
-        }
-        return (
-            state
-        )*/
 }
 export const sendDialogMessageAC = () => {
-    return ({
+    return {
         type: SEND_DIALOG_MESSAGE,
-    }) as const
+    } as const
 }
 
-export const updateNewMessageBodyAC = (body: string) => {
-    return ({
+export const updateNewMessageBodyAC = (title: string) => {
+    return {
         type: UPDATE_NEW_MESSAGE_BODY,
-        body: body
-    }) as const
+        title
+    } as const
 }
