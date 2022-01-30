@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {PostDataType, RootStateType} from '../../../redux/rootStateType';
 import {addPostActionCreator, updateNewPostMessageAC} from '../../../redux/profileReducer';
 import MyPosts from './MyPosts';
@@ -23,8 +21,8 @@ export type MyPostType = MapStateToPropsType | MapDispatchToPropsType
 
 let mapStateToProps = (state: AppStateType) : MapStateToPropsType=> {
     return {
-        posts: state.profileReducer.postData,
-        messageForNewPost: state.profileReducer.messageForNewPost
+        posts: state.profilePage.postData,
+        messageForNewPost: state.profilePage.messageForNewPost
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch) :MapDispatchToPropsType=> {

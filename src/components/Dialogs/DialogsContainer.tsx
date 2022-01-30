@@ -1,4 +1,3 @@
-import React from 'react';
 import {DialogsPageType} from '../../redux/rootStateType';
 import {sendDialogMessageAC, updateNewMessageBodyAC} from '../../redux/dialogsReducer';
 import Dialogs from './Dialogs';
@@ -19,7 +18,7 @@ type MapDispatchToPropsType = {
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        dialogsPage: state.dialogsReducer,
+        dialogsPage: state.dialogsPage,
     }
 }
 

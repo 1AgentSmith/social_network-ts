@@ -1,0 +1,37 @@
+.mainBlock {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 800px;
+    background-color: burlywood;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.userPhoto {
+    width: 150px;
+    height: 200px;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.rightSide {
+    display: flex;
+    margin-top: 20px;
+}
+
+.nameAndStatus {
+    margin-left: 10px;
+}
+.cityAndCountry {
+    margin-left: 500px;
+}
+.status {
+    margin-top: 80px;
+}
+.city {
+    margin-top: 80px;
+}
+.buttonFollow {
+    margin-left: 50px;
+    padding-bottom: 10px;
+}
