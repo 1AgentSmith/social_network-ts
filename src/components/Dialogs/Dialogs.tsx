@@ -1,27 +1,29 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
-import {DialogsPageType} from '../../redux/rootStateType';
+import {DialogsType, MessagesType} from '../../redux/dialogsReducer';
 
-type DialogsPropsType = {
-    updateNewMessageBody: (body: string)=> void
-    sendDialogsMessage: ()=> void
-    dialogsPage: DialogsPageType
+export type DialogsPageType = {
+    dialogs: Array<DialogsType>
+    messages: Array<MessagesType>
 }
 
-
-const Dialogs = ({updateNewMessageBody, sendDialogsMessage, dialogsPage, ...props}: DialogsPropsType) => {
-
+type DialogsPropsType = {
+    sendDialogsMessage: (title: string) => void
+    dialogsPage: DialogsPageType
+}
+const Dialogs = ({sendDialogsMessage, dialogsPage}: DialogsPropsType) => {
+    let [dialogTitle, setDialogTitle] = useState('')
     let dialogsElements = dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id}/>)
     let messagesElements = dialogsPage.messages.map(m => <Message message={m.message} key={m.id}/>)
 
-    let onSendClickHandler = () => {
-        sendDialogsMessage()
+    let onClickHandler = (title: string) => {
+        sendDialogsMessage(title)
+        setDialogTitle('')
     }
     let onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let body = e.currentTarget.value
-        updateNewMessageBody(body)
+        setDialogTitle(e.currentTarget.value)
     }
 
     return (
@@ -35,12 +37,12 @@ const Dialogs = ({updateNewMessageBody, sendDialogsMessage, dialogsPage, ...prop
                     <div>
                         <textarea
                             placeholder="Enter your message"
-                            value={dialogsPage.newMessageBody}
+                            value={dialogTitle}
                             onChange={onChangeHandler}>g
                         </textarea>
                     </div>
                     <div>
-                        <button onClick={onSendClickHandler}>Send</button>
+                        <button onClick={() => onClickHandler(dialogTitle)}>Send</button>
                     </div>
                 </div>
             </div>

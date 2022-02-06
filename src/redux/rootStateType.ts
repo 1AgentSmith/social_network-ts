@@ -1,20 +1,13 @@
-import {addPostActionCreator, updateNewPostMessageAC} from './profileReducer';
+import {addPostAC} from './profileReducer';
 import {
-    DialogsType,
-    MessagesType,
-    newMessageBodyType,
     sendDialogMessageAC,
-    updateNewMessageBodyAC
 } from './dialogsReducer';
 import {followAC, setUsersAC, unfollowAC} from './usersReducer';
-
-
+import {DialogsPageType} from '../components/Dialogs/Dialogs';
 
 
 export type ActionsTypes =
-    ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof updateNewPostMessageAC> |
-    ReturnType<typeof updateNewMessageBodyAC> |
+    ReturnType<typeof addPostAC> |
     ReturnType<typeof sendDialogMessageAC> |
     ReturnType<typeof followAC> |
     ReturnType<typeof unfollowAC> |
@@ -35,26 +28,6 @@ export type PostDataType = {
 }
 export type ProfilePageType = {
     postData: Array<PostDataType>
-    messageForNewPost: string
 }
-
-
-//dialogsPage type
-export type DialogsPageType = {
-    dialogs: Array<DialogsType>
-    messages: Array<MessagesType>
-    newMessageBody: newMessageBodyType
-}
-
-/*export type MessagesType = {
-    id: string
-    message: string
-}
-export type DialogsType = {
-    name: string
-    id: string
-}
-export type newMessageBodyType = string*/
-//sideBar type
 
 

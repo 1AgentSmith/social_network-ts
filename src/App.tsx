@@ -11,7 +11,6 @@ import DialogsContainer from './components/Dialogs/DialogsContainer';
 import {UsersContainer} from './components/Users/UsersContainer';
 
 
-
 function App() {
     return (
         <div className="App-wrapper">
@@ -22,7 +21,7 @@ function App() {
                        render={() => <Profile/>}/>
                 <Route path="/dialogs"
                        render={() => <DialogsContainer/>}/>
-                <Route path={'/users'} render={()=> <UsersContainer/>}/>
+                <Route path={'/users'} render={() => <UsersContainer/>}/>
                 <Route path="/news" component={News}/>
                 <Route path="/music" component={Music}/>
                 <Route path="/settings" component={Settings}/>

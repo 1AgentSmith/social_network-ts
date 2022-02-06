@@ -2,7 +2,6 @@ import {ActionsTypes} from './rootStateType';
 import {v1} from 'uuid';
 
 
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
 const SEND_DIALOG_MESSAGE = 'SEND_DIALOG_MESSAGE'
 export type MessagesType = {
     id: string
@@ -12,7 +11,6 @@ export type DialogsType = {
     name: string
     id: string
 }
-export type newMessageBodyType = string
 
 export type InitialStateType = typeof initialState
 
@@ -27,20 +25,14 @@ let initialState = {
         {id: v1(), message: 'How are you?'},
         {id: v1(), message: 'Yo'},
     ] as Array<MessagesType>,
-    newMessageBody: '' as newMessageBodyType,
 }
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes) : InitialStateType=> {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY: {
-            return {...state, newMessageBody: action.title}
-        }
         case SEND_DIALOG_MESSAGE: {
-            let body = state.newMessageBody
             return {
                 ...state,
-                newMessageBody:'',
-                messages: [...state.messages, {id: v1(), message: body}]
+                messages: [...state.messages, {id: v1(), message: action.newMessageTitle}]
             }
         }
         default:
@@ -48,15 +40,9 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: A
     }
 
 }
-export const sendDialogMessageAC = () => {
-    return {
-        type: SEND_DIALOG_MESSAGE,
-    } as const
-}
 
-export const updateNewMessageBodyAC = (title: string) => {
+export const sendDialogMessageAC = (newMessageTitle: string) => {
     return {
-        type: UPDATE_NEW_MESSAGE_BODY,
-        title
+        type: SEND_DIALOG_MESSAGE, newMessageTitle
     } as const
 }
