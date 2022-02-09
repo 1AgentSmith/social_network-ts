@@ -5,14 +5,19 @@ let initialState : InitialStateType= {
     users: []
 }
 export type UserType = {
-    id: string
-    fullName: string
+    name: string
+    id: number
+    uniqueUrlName: null
+    photos: {
+        small: null
+        large: null
+    }
     status: string
-    location: { city: string, country: string }
-    follow: boolean
-    avatar: string
+    followed: boolean
+
 }
 export type InitialStateType = {
+   // users: Array<UserType>
     users: Array<UserType>
 }
 
@@ -37,12 +42,12 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             return state
     }
 }
-export const followAC = (userID: string) => ({
+export const followAC = (userID: number) => ({
     type: 'FOLLOW',
     userID
 }) as const
 
-export const unfollowAC = (userID: string) => {
+export const unfollowAC = (userID: number) => {
     return {
         type: 'UNFOLLOW',
         userID

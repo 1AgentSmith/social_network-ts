@@ -22,7 +22,7 @@ export type RootStateType = {
 
 // profilePage type
 export type PostDataType = {
-    id: string
+    id: number
     message: string
     likesCount: number
 }

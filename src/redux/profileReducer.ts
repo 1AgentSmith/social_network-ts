@@ -5,8 +5,8 @@ const ADD_POST = 'ADD_POST'
 
 let initialState = {
     postData: [
-        {id: v1(), message: 'Hi, how are you?', likesCount: 0},
-        {id: v1(), message: 'It\'s my first post', likesCount: 1}
+        {id: 1, message: 'Hi, how are you?', likesCount: 0},
+        {id: 2, message: 'It\'s my first post', likesCount: 1}
     ],
     messageForNewPost: '',
 } as ProfilePageType
@@ -16,7 +16,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     switch (action.type) {
         case ADD_POST: {
             const newPost: PostDataType = {
-                id: v1(),
+                id: 3,
                 message: action.newTitlePostMessage,
                 likesCount: 0
             }
