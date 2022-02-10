@@ -6,16 +6,17 @@ import axios from 'axios';
 import React from 'react';
 
 
-export class Users extends React.Component<UsersPropsType>{
-    constructor(props:UsersPropsType) {
+export class Users extends React.Component<UsersPropsType> {
+    constructor(props: UsersPropsType) {
         super(props);
-            if (this.props.users.users.length === 0) {
-                axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                    debugger
-                    this.props.setUsers(response.data.items)
-                })
-            }
     }
+    componentDidMount() {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            debugger
+            this.props.setUsers(response.data.items)
+        })
+    }
+
     render() {
         return <div>
             {this.props.users.users.map(m => <div key={m.id} className={styles.mainBlock}>
